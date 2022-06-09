@@ -1,6 +1,7 @@
 global using Microsoft.EntityFrameworkCore;
 global using BlazorEcommerce.Shared;
 global using BlazorEcommerce.Server.Data;
+global using BlazorEcommerce.Server.Services.ProductService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IProductService, ProductService>();
+
 var app = builder.Build();
 
 app.UseSwaggerUI();
+app.UseSwagger();
 
 if (app.Environment.IsDevelopment())
 {
@@ -28,7 +32,6 @@ else
     app.UseHsts();
 }
 
-app.UseSwagger();
 app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();

@@ -6,15 +6,11 @@ namespace BlazorEcommerce.Client.Shared
     public partial class ProductList
     {
         [Inject]
-        public HttpClient Http { get; set; }
-
-        private static List<Product> Products = new List<Product>();
+        public IProductService ProductService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            var result = await Http.GetFromJsonAsync<List<Product>>("api/product");
-            if (result != null)
-                Products = result;
+            await ProductService.GetProducts();
         }
     }
 }
