@@ -52,10 +52,12 @@
             return response;
         }
 
-        public async Task<ServiceResponse<ProductSearchResult>> SearchProducts(string searchText, int page)
+        public async Task<ServiceResponse<ProductSearchResult>> SearchProducts
+            (string searchText, int page)
         {
             var pageResults = 2f;
-            var pageCount = Math.Ceiling((await FindProductsBySearchText(searchText)).Count / pageResults);
+            var pageCount 
+                = Math.Ceiling((await FindProductsBySearchText(searchText)).Count / pageResults);
             var products = await _context.Products
                                 .Where(p => p.Title.ToLower().Equals(searchText.ToLower())
                                 || p.Description.ToLower().Contains(searchText.ToLower()))
@@ -105,7 +107,8 @@
 
                     foreach(var word in words)
                     {
-                        if(word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word))
+                        if(word.Contains(searchText, StringComparison.OrdinalIgnoreCase) 
+                            && !result.Contains(word))
                             result.Add(word);
                     }
                 }

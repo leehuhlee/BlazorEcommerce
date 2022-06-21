@@ -9,7 +9,8 @@
             _context = context;
         }
 
-        public async Task<ServiceResponse<List<CartProductResponse>>> GetCartProducts(List<CartItem> cartItems)
+        public async Task<ServiceResponse<List<CartProductResponse>>> GetCartProducts
+            (List<CartItem> cartItems)
         {
             var result = new ServiceResponse<List<CartProductResponse>>()
             {
