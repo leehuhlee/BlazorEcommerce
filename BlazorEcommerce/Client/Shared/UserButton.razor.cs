@@ -11,15 +11,14 @@ namespace BlazorEcommerce.Client.Shared
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+        [Inject]
+        public ICartService CartService { get; set; }
 
         private bool showUserMenu = false;
 
         private string UserMenuCssClass => showUserMenu ? "show-menu" : null;
 
-        private void ToggleUserMenu()
-        {
-            showUserMenu = !showUserMenu;
-        }
+        private void ToggleUserMenu() => showUserMenu = !showUserMenu;
 
         private async Task HideUserMenu()
         {
@@ -30,6 +29,7 @@ namespace BlazorEcommerce.Client.Shared
         private async Task Logout()
         {
             await LocalStorage.RemoveItemAsync("authToken");
+            await CartService.GetCartItemsCount();
             await AuthenticationStateProvider.GetAuthenticationStateAsync();
             NavigationManager.NavigateTo("");
         }

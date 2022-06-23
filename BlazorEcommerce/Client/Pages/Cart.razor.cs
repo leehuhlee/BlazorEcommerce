@@ -6,12 +6,16 @@ namespace BlazorEcommerce.Client.Pages
     {
         [Inject]
         public ICartService CartService { get; set; }
+        [Inject]
+        public IOrderService OrderService { get; set; }
 
         List<CartProductResponse> cartProducts = new List<CartProductResponse>();
         string message = "Loading cart...";
+        bool orderPlaced = false;
 
         protected override async Task OnInitializedAsync()
         {
+            orderPlaced = false;
             await LoadCart();
         }
 
@@ -22,15 +26,10 @@ namespace BlazorEcommerce.Client.Pages
         }
         private async Task LoadCart()
         {
-            if (!(await CartService.GetCartItems()).Any())
-            {
+            await CartService.GetCartItemsCount();
+            cartProducts = await CartService.GetCartProducts();
+            if (!cartProducts.Any())
                 message = "Your cart is empty.";
-                cartProducts = new List<CartProductResponse>();
-            }
-            else
-            {
-                cartProducts = await CartService.GetCartProducts();
-            }
         }
 
         private async Task UpdateQuantity(ChangeEventArgs e, CartProductResponse product)
@@ -39,6 +38,13 @@ namespace BlazorEcommerce.Client.Pages
             if (product.Quantity < 1)
                 product.Quantity = 1;
             await CartService.UpdateQuantity(product);
+        }
+
+        private async Task PlaceOrder()
+        {
+            await OrderService.PlaceOrder();
+            await CartService.GetCartItemsCount();
+            orderPlaced = true;
         }
     }
 }
