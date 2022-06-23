@@ -12,9 +12,7 @@ namespace BlazorEcommerce.Client.Pages
 
         OrderDetailsResponse order = null;
 
-        protected override async Task OnInitializedAsync()
-        {
-            order = await OrderService.GetOrderDetails(OrderId);
-        }
+        protected override async Task OnInitializedAsync() 
+            => order = await OrderService.GetOrderDetails(OrderId);
     }
 }

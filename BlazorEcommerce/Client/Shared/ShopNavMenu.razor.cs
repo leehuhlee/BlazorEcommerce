@@ -8,17 +8,13 @@ namespace BlazorEcommerce.Client.Shared
         public ICategoryService CategoryService { get; set; }
 
         protected override async Task OnInitializedAsync()
-        {
-            await CategoryService.GetCategories();
-        }
+            => await CategoryService.GetCategories();
 
         private bool collapseNavMenu = true;
 
         private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
         private void ToggleNavMenu()
-        {
-            collapseNavMenu = !collapseNavMenu;
-        }
+            => collapseNavMenu = !collapseNavMenu;
     }
 }

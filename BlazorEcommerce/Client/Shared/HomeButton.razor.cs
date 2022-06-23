@@ -8,8 +8,6 @@ namespace BlazorEcommerce.Client.Shared
         public NavigationManager NavigationManager { get; set; }
 
         private void GoToHome()
-        {
-            NavigationManager.NavigateTo("");
-        }
+            => NavigationManager.NavigateTo("");
     }
 }

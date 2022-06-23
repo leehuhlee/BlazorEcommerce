@@ -6,28 +6,29 @@ namespace BlazorEcommerce.Client.Services.OrderService
     {
         private readonly HttpClient _http;
         private readonly AuthenticationStateProvider _authStateProvider;
-        private readonly NavigationManager _navigationManager;
 
         public OrderService(
             HttpClient http, 
-            AuthenticationStateProvider authStateProvider,
-            NavigationManager navigationManager)
+            AuthenticationStateProvider authStateProvider)
         {
             _http = http;
             _authStateProvider = authStateProvider;
-            _navigationManager = navigationManager;
         }
 
         private async Task<bool> IsUserAuthenticated()
             => (await _authStateProvider.GetAuthenticationStateAsync())
             .User.Identity.IsAuthenticated;
 
-        public async Task PlaceOrder()
+        public async Task<string> PlaceOrder()
         {
             if (await IsUserAuthenticated())
-                await _http.PostAsync("api/order", null);
+            {
+                var result = await _http.PostAsync("api/payment/checkout", null);
+                var url = await result.Content.ReadAsStringAsync();
+                return url;
+            }
             else
-                _navigationManager.NavigateTo("login");
+                return "login";
         }
 
         public async Task<List<OrderOverviewResponse>> GetOrders()

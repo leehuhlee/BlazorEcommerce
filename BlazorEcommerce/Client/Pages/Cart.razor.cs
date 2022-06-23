@@ -8,16 +8,14 @@ namespace BlazorEcommerce.Client.Pages
         public ICartService CartService { get; set; }
         [Inject]
         public IOrderService OrderService { get; set; }
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
 
         List<CartProductResponse> cartProducts = new List<CartProductResponse>();
         string message = "Loading cart...";
-        bool orderPlaced = false;
 
         protected override async Task OnInitializedAsync()
-        {
-            orderPlaced = false;
-            await LoadCart();
-        }
+            => await LoadCart();
 
         private async Task RemoveProductFromCart(int productId, int productTypeId)
         {
@@ -42,9 +40,8 @@ namespace BlazorEcommerce.Client.Pages
 
         private async Task PlaceOrder()
         {
-            await OrderService.PlaceOrder();
-            await CartService.GetCartItemsCount();
-            orderPlaced = true;
+            string url = await OrderService.PlaceOrder();
+            NavigationManager.NavigateTo(url);
         }
     }
 }

@@ -9,14 +9,10 @@ namespace BlazorEcommerce.Client.Shared
         public IProductService ProductService { get; set; }
 
         protected override void OnInitialized()
-        {
-            ProductService.ProductsChanged += StateHasChanged;
-        }
+            => ProductService.ProductsChanged += StateHasChanged;
 
         public void Dispose()
-        {
-            ProductService.ProductsChanged -= StateHasChanged;
-        }
+            => ProductService.ProductsChanged -= StateHasChanged;
 
         private string GetPriceText(Product product) 
         {
@@ -25,6 +21,7 @@ namespace BlazorEcommerce.Client.Shared
                 return string.Empty;
             else if (variants.Count == 1)
                 return $"${variants[0].Price}";
+
             decimal minPrice = variants.Min(v => v.Price);
             return $"Starting at ${minPrice}";
         }

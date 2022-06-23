@@ -8,13 +8,9 @@ namespace BlazorEcommerce.Client.Shared
         public IProductService ProductService { get; set; }
 
         protected override void OnInitialized()
-        {
-            ProductService.ProductsChanged += StateHasChanged;
-        }
+            => ProductService.ProductsChanged += StateHasChanged;
 
         public void Dispose()
-        {
-            ProductService.ProductsChanged -= StateHasChanged;
-        }
+            => ProductService.ProductsChanged -= StateHasChanged;
     }
 }

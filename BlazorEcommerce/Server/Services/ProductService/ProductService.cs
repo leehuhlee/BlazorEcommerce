@@ -32,9 +32,7 @@
                 response.Message = "Sorry, but this product does not exist.";
             }
             else
-            {
                 response.Data = product;
-            }
 
             return response;
         }
@@ -106,11 +104,9 @@
                         .Select(s => s.Trim(punctuation));
 
                     foreach(var word in words)
-                    {
                         if(word.Contains(searchText, StringComparison.OrdinalIgnoreCase) 
                             && !result.Contains(word))
                             result.Add(word);
-                    }
                 }
             }
 

@@ -48,9 +48,7 @@ namespace BlazorEcommerce.Server.Controllers
             var response = await _authService.ChangePassword(int.Parse(userId), newPassword);
 
             if (!response.Success)
-            {
                 return BadRequest(response);
-            }
 
             return Ok(response);
         }
