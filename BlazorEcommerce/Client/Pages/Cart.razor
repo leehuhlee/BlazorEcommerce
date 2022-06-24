@@ -24,7 +24,8 @@ else
                            class="form-control input-quantity" 
                            min="1"/>
                     <button class="btn-delete" 
-                            @onclick="@(() => RemoveProductFromCart(product.ProductId, product.ProductTypeId))">
+                            @onclick="@(() 
+                                => RemoveProductFromCart(product.ProductId, product.ProductTypeId))">
                             Delete</button>
                 </div>
                 <div class="cart-product-price">$@(product.Price * product.Quantity)</div>

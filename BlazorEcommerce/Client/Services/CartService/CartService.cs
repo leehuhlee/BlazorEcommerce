@@ -47,7 +47,8 @@ namespace BlazorEcommerce.Client.Services.CartService
         {
             if (await _authService.IsUserAuthenticated())
             {
-                var response = await _http.GetFromJsonAsync<ServiceResponse<List<CartProductResponse>>>("api/cart");
+                var response = await _http
+                    .GetFromJsonAsync<ServiceResponse<List<CartProductResponse>>>("api/cart");
                 return response.Data;
             }
             else
@@ -58,7 +59,8 @@ namespace BlazorEcommerce.Client.Services.CartService
 
                 var response = await _http.PostAsJsonAsync("api/cart/products", cartItems);
                 var cartProducts =
-                    await response.Content.ReadFromJsonAsync<ServiceResponse<List<CartProductResponse>>>();
+                    await response.Content
+                        .ReadFromJsonAsync<ServiceResponse<List<CartProductResponse>>>();
                 return cartProducts.Data;
             }
         }

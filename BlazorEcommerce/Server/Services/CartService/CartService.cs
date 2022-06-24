@@ -66,11 +66,13 @@
 
         public async Task<ServiceResponse<int>> GetCartItemsCount()
         {
-            var count = await _context.CartItems.Where(ci => ci.UserId == _authService.GetUserId()).CountAsync();
+            var count = await _context.CartItems
+                .Where(ci => ci.UserId == _authService.GetUserId()).CountAsync();
             return new ServiceResponse<int> { Data = count };
         }
 
-        public async Task<ServiceResponse<List<CartProductResponse>>> GetDbCartProducts(int? userId  = null)
+        public async Task<ServiceResponse<List<CartProductResponse>>> GetDbCartProducts
+            (int? userId  = null)
         {
             if(userId == null)
                 userId = _authService.GetUserId();

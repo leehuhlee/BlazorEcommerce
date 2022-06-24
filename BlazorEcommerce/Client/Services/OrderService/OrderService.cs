@@ -33,13 +33,15 @@ namespace BlazorEcommerce.Client.Services.OrderService
 
         public async Task<List<OrderOverviewResponse>> GetOrders()
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<List<OrderOverviewResponse>>>("api/order");
+            var result = await _http
+                .GetFromJsonAsync<ServiceResponse<List<OrderOverviewResponse>>>("api/order");
             return result.Data;
         }
 
         public async Task<OrderDetailsResponse> GetOrderDetails(int orderId)
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<OrderDetailsResponse>>($"api/order/{orderId}");
+            var result = await _http
+                .GetFromJsonAsync<ServiceResponse<OrderDetailsResponse>>($"api/order/{orderId}");
             return result.Data;
         }
     }
