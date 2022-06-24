@@ -35,5 +35,12 @@ else
                 @product.Price * product.Quantity)
         </div>
     </div>
+    @if(isAuthenticated)
+    {
+        <div>
+            <h5>Delivery Address</h5>
+            <AddressForm />
+        </div>
+    }
     <button @onclick="PlaceOrder" class="btn alert-success float-end mt-1">Checkout</button>
 }

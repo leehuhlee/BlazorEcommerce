@@ -1,6 +1,7 @@
 global using Microsoft.EntityFrameworkCore;
 global using BlazorEcommerce.Shared;
 global using BlazorEcommerce.Server.Data;
+global using BlazorEcommerce.Server.Services.AddressService;
 global using BlazorEcommerce.Server.Services.AuthService;
 global using BlazorEcommerce.Server.Services.CartService;
 global using BlazorEcommerce.Server.Services.CategoryService;
@@ -23,6 +24,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();

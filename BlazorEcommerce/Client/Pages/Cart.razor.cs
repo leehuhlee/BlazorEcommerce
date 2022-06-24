@@ -10,12 +10,18 @@ namespace BlazorEcommerce.Client.Pages
         public IOrderService OrderService { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+        [Inject]
+        public IAuthService AuthService { get; set; }
 
         List<CartProductResponse> cartProducts = new List<CartProductResponse>();
         string message = "Loading cart...";
+        bool isAuthenticated = false;
 
         protected override async Task OnInitializedAsync()
-            => await LoadCart();
+        {
+            isAuthenticated = await AuthService.IsUserAuthenticated();
+            await LoadCart();
+        }
 
         private async Task RemoveProductFromCart(int productId, int productTypeId)
         {
